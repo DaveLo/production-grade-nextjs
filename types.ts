@@ -14,7 +14,7 @@ export interface Post {
 
 export interface UserSession {
   id: string
-  image: string
+  picture: string
   email: string
   name: string
 }

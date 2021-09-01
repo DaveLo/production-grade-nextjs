@@ -4,8 +4,18 @@ import Container from '../components/container'
 import Hero from '../components/hero'
 import HomeNav from '../components/homeNav'
 import FeatureSection from '../components/featureSection'
+import { home } from '../content'
+import { GetStaticProps } from 'next'
 
-const Home: FC<{ content: { hero: any; features: any[] } }> = ({ content }) => {
+interface HomeProps {
+  content: { hero: any; features: any[] }
+}
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const content = ctx.preview ? home.draft : home.published
+  return { props: { content } }
+}
+
+const Home: FC<HomeProps> = ({ content }) => {
   return (
     <Pane>
       <header>
@@ -32,17 +42,6 @@ const Home: FC<{ content: { hero: any; features: any[] } }> = ({ content }) => {
       </footer>
     </Pane>
   )
-}
-
-/**
- * Should really get this content from our CMS
- */
-
-Home.defaultProps = {
-  content: {
-    features: [{ title: 'default feature', body: 'default body' }],
-    hero: { title: 'default title', body: 'default body' },
-  },
 }
 
 export default Home
